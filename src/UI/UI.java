@@ -3,6 +3,7 @@ package UI;
 import Classes.Topic.Topic;
 import Classes.TopicRepo.TopicRepo;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UI {
@@ -17,8 +18,7 @@ public class UI {
     public void launchTextUI() {
         System.out.println("Week 1 Excercise");
         this.repo.openFile();
-        this.repo.printTopics();
-
+        this.repo.addTopic(this.repo.getTopicById(0));
 
         while(true) {
             System.out.println("COMMANDS");
@@ -41,14 +41,15 @@ public class UI {
                     String yesno = reader.nextLine();
                     Boolean comp;
                     if(yesno.equalsIgnoreCase("y")) {
-                        comp = true
+                        comp = true;
                     }
                     else {
                         comp = false;
                     }
-
-
-
+                    repo.addTopic(new Topic(name, descr, addsource, comp));
+                case "2":
+                    System.out.println("TOPICS");
+                    repo.printTopics();
 
             }
         }

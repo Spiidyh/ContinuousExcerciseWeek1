@@ -30,15 +30,16 @@ public class TopicRepo {
         }
     }
 
-    public void addTopicToFile(Topic t) {
+    public static void addTopicToFile(Topic t) {
         try {
-            FileWriter fr = new FileWriter(".data/topics.txt", true);
+            FileWriter fr = new FileWriter("./data/topics.txt", true);
             PrintWriter pw = new PrintWriter(fr);
-            pw.println(t.getTitle()+ "!/!" +  t.getDescription() + "!/!" + t.getAdditionalSource() + "!/!" + t.isComplete() + "!/!" + t.getCreationDate() + t.getCompletionDate());
+            pw.println(t.getFileWriteString());
+            pw.println();
             fr.close();
             pw.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println("Write error: " + e.getMessage());
         }
     }
 
@@ -49,9 +50,13 @@ public class TopicRepo {
     }
 
     public void addTopic(Topic topic) {
-
+        this.repo.add(topic);
+        addTopicToFile(topic);
 
     }
 
 
+    public Topic getTopicById(int i) {
+       return this.repo.get(i);
+    }
 }
