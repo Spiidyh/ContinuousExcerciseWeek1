@@ -14,8 +14,12 @@ public class UI {
         this.repo = new TopicRepo();
     }
 
-    public launchTextUI() {
+    public void launchTextUI() {
         System.out.println("Week 1 Excercise");
+        this.repo.openFile();
+        this.repo.printTopics();
+
+
         while(true) {
             System.out.println("COMMANDS");
             System.out.println("1 ADD TOPIC");
@@ -25,11 +29,29 @@ public class UI {
             String command = reader.nextLine();
             switch (command) {
                 case "1":
-                    System.out.println("Enter topic name");
+                    System.out.println("Enter topic name: ");
+                    System.out.print(">");
                     String name = reader.nextLine();
-                    this.repo.addTopic(new Topic(name));
+                    System.out.println("Enter description: ");
+                    System.out.print(">");
+                    String descr = reader.nextLine();
+                    System.out.println("Enter additional sources: ");
+                    String addsource = reader.nextLine();
+                    System.out.println("Is the topic completed? y/n");
+                    String yesno = reader.nextLine();
+                    Boolean comp;
+                    if(yesno.equalsIgnoreCase("y")) {
+                        comp = true
+                    }
+                    else {
+                        comp = false;
+                    }
+
+
+
 
             }
         }
+
     }
 }

@@ -1,6 +1,7 @@
 package Classes.Topic;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Topic {
     private static int idcounter;
@@ -9,25 +10,53 @@ public class Topic {
     private String description;
     private String additionalSource;
     private boolean complete;
-    private LocalDate creationDate;
-    private LocalDate completionDate;
+    private Date creationDate;
+    private Date completionDate;
 
-    public Topic(String title, String description, String additionalSource, boolean complete, LocalDate creationDate, LocalDate completionDate) {
+
+    public Topic(String title, String description, String additionalSource, boolean complete, String creationDate, String completionDate) {
         this.idcounter++;
         this.title = title;
         this.description = description;
         this.additionalSource = additionalSource;
         this.complete = complete;
-        this.creationDate = creationDate;
-        this.completionDate = completionDate;
+        String[] creation = creationDate.split("/");
+        this.creationDate = new Date(Integer.valueOf(creation[0]), Integer.valueOf(creation[1]), Integer.valueOf(creation[2]));
+        if (completionDate != null) {
+            String[] completion = completionDate.split("/");
+            this.completionDate = new Date(Integer.valueOf(completion[0]), Integer.valueOf(completion[1]), Integer.valueOf(completion[2]));
+        } else {
+            this.completionDate = null;
+        }
+    }
+    public Topic(String title, String description, String additionalSource, boolean complete)    {
+        this.idcounter++;
+        this.title = title;
+        this.description = description;
+        this.additionalSource = additionalSource;
+        this.complete = complete;
+        this.creationDate = new LocalDate();
+        this.completionDate = null;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
     }
 
     public String getTitle() {
@@ -60,22 +89,6 @@ public class Topic {
 
     public void setComplete(boolean complete) {
         this.complete = complete;
-    }
-
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public LocalDate getCompletionDate() {
-        return completionDate;
-    }
-
-    public void setCompletionDate(LocalDate completionDate) {
-        this.completionDate = completionDate;
     }
 
 
