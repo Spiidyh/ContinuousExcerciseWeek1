@@ -18,7 +18,6 @@ public class UI {
     public void launchTextUI() {
         System.out.println("Week 1 Excercise");
         this.repo.openFile();
-        this.repo.addTopic(this.repo.getTopicById(0));
 
         while(true) {
             System.out.println("COMMANDS");

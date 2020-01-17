@@ -35,7 +35,6 @@ public class TopicRepo {
             FileWriter fr = new FileWriter("./data/topics.txt", true);
             PrintWriter pw = new PrintWriter(fr);
             pw.println(t.getFileWriteString());
-            pw.println();
             fr.close();
             pw.close();
         } catch (Exception e) {
