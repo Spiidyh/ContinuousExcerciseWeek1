@@ -1,8 +1,11 @@
 package UI;
 
+import Classes.FileReadWrite.FileRead;
+import Classes.FileReadWrite.FileWrite;
 import Classes.Topic.Topic;
 import Classes.TopicRepo.TopicRepo;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -15,11 +18,16 @@ public class UI {
         this.repo = new TopicRepo();
     }
 
-    public void launchTextUI() {
+    public void launchTextUI() throws IOException {
         System.out.println("Week 1 Excercise");
-        this.repo.openFile();
+        FileRead fr = new FileRead();
+        FileWrite fw = new FileWrite();
+        repo.addTopicList(fr.readJSONFile());
 
-        while(true) {
+
+
+
+/*        while(true) {
             System.out.println("COMMANDS");
             System.out.println("1 ADD TOPIC");
             System.out.println("2 PRINT ALL TOPICS");
@@ -48,10 +56,11 @@ public class UI {
                     repo.addTopic(new Topic(name, descr, addsource, comp));
                 case "2":
                     System.out.println("TOPICS");
-                    repo.printTopics();
-
-            }
-        }
+                    repo.printTopics();*/
 
     }
 }
+
+
+
+

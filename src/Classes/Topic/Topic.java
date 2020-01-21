@@ -1,40 +1,37 @@
 package Classes.Topic;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Topic {
-    private static int idcounter;
-    private final int id = idcounter;
+    private String id;
     private String title;
-    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private String description;
     private String additionalSource;
     private boolean complete;
     private LocalDate creationDate;
     private LocalDate completionDate;
 
-
-    public Topic(String title, String description, String additionalSource, boolean complete, String creationDate, String completionDate) throws ParseException {
-        this.idcounter++;
+    public Topic() {
+        
+    }
+    public Topic(String title, String description, String additionalSource, boolean complete, LocalDate creationDate, LocalDate completionDate) throws ParseException {
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.title = title;
         this.description = description;
         this.additionalSource = additionalSource;
         this.complete = complete;
-        this.creationDate = LocalDate.parse(creationDate, df);
-        if (completionDate != null) {
-            this.completionDate = LocalDate.parse(completionDate, df);
-        } else {
-            this.completionDate = null;
-        }
+        this.creationDate = creationDate;
+        this.completionDate = completionDate;
+
     }
 
     public Topic(String title, String description, String additionalSource, boolean complete) {
-        this.idcounter++;
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.title = title;
         this.description = description;
         this.additionalSource = additionalSource;
@@ -43,26 +40,23 @@ public class Topic {
         this.completionDate = null;
     }
 
-    public Topic(String title, String description, String additionalSource, boolean complete, String completionDate) {
-        this.idcounter++;
+    public Topic(String title, String description, String additionalSource, boolean complete, LocalDate completionDate) {
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
         this.title = title;
         this.description = description;
         this.additionalSource = additionalSource;
         this.complete = complete;
-        this.creationDate = LocalDate.parse(LocalDate.now().toString(), df);
-        this.completionDate = LocalDate.parse(completionDate, df);
+        this.creationDate = LocalDate.now();
+        this.completionDate = completionDate;
     }
 
-    public int getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public LocalDate getCreationDate() {
         return creationDate;
-    }
-
-    public String getCreationDateString() {
-        return df.format(creationDate);
     }
 
     public void setCreationDate(LocalDate creationDate) {
@@ -73,8 +67,8 @@ public class Topic {
         return completionDate;
     }
 
-    public String getCompletionDateString() {
-        return df.format(this.completionDate);
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setCompletionDate(LocalDate completionDate) {
@@ -109,11 +103,24 @@ public class Topic {
         return complete;
     }
 
-    public String getFileWriteString() {
-        if (getCompletionDate() == null) {
-            return getTitle() + "!/!" + getDescription() + "!/!" + getAdditionalSource() + "!/!" + isComplete() + "!/!" + getCreationDateString() + "!/!" + "01/01/1010" + "!/!";
-        }
-        return getTitle() + "!/!" + getDescription() + "!/!" + getAdditionalSource() + "!/!" + isComplete() + "!/!" + getCreationDateString() + "!/!" + getCompletionDateString() + "!/!";
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topic topic = (Topic) o;
+        return Objects.equals(title, topic.title) &&
+                Objects.equals(description, topic.description) &&
+                Objects.equals(additionalSource, topic.additionalSource);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, additionalSource);
     }
 
     @Override
@@ -127,10 +134,6 @@ public class Topic {
                 ", creationDate=" + creationDate +
                 ", completionDate=" + completionDate +
                 '}';
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
     }
 
 
