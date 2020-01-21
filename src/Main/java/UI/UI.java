@@ -24,10 +24,7 @@ public class UI {
         FileWrite fw = new FileWrite();
         repo.addTopicList(fr.readJSONFile());
 
-
-
-
-/*        while(true) {
+        while(true) {
             System.out.println("COMMANDS");
             System.out.println("1 ADD TOPIC");
             System.out.println("2 PRINT ALL TOPICS");
@@ -47,16 +44,20 @@ public class UI {
                     System.out.println("Is the topic completed? y/n");
                     String yesno = reader.nextLine();
                     Boolean comp;
-                    if(yesno.equalsIgnoreCase("y")) {
+                    if(yesno.equalsIgnoreCase("y") || yesno.equalsIgnoreCase("yes"))) {
                         comp = true;
                     }
                     else {
                         comp = false;
                     }
-                    repo.addTopic(new Topic(name, descr, addsource, comp));
+                    Topic t = new Topic(name, descr, addsource, comp);
+                    fw.writeJSONFileTopic(t);
+                    repo.addTopic(t);
+                    break,
                 case "2":
                     System.out.println("TOPICS");
-                    repo.printTopics();*/
+                    repo.printTopics();
+                    break;
 
     }
 }
