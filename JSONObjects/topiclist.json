@@ -1,25 +1,30 @@
-[ {
-  "id" : "2661f82c-6cf8-49bd-b1ad-6e0ea9aa00a7",
-  "title" : "Java collections",
-  "description" : "Information about classes, collections arraylists etc.",
-  "additionalSource" : "No additional sources",
-  "complete" : false,
-  "creationDate" : [ 2020, 1, 19 ],
-  "completionDate" : null
-}, {
-  "id" : "9e6bf978-31dd-4817-9db0-0ebc84b8e8b2",
-  "title" : "Java testing",
-  "description" : "Basics on junit testing and TDD",
-  "additionalSource" : "No additional sources",
-  "complete" : false,
-  "creationDate" : [ 2020, 1, 21 ],
-  "completionDate" : null
-}, {
-  "id" : "0f47760c-e657-404a-a1ac-77d56131cec3",
-  "title" : "Java streams",
-  "description" : "How streams in java work and what methods can you use with them",
-  "additionalSource" : "the internet",
-  "complete" : true,
-  "creationDate" : [ 2020, 1, 22 ],
-  "completionDate" : null
-} ]
+{
+  "list" : [ {
+    "id" : "2661f82c-6cf8-49bd-b1ad-6e0ea9aa00a7",
+    "title" : "Java collections",
+    "description" : "Information about classes, collections arraylists etc.",
+    "additionalSource" : "No additional sources",
+    "complete" : false,
+    "creationDate" : [ 2020, 1, 19 ],
+    "completionDate" : null,
+    "topicList" : null
+  }, {
+    "id" : "9e6bf978-31dd-4817-9db0-0ebc84b8e8b2",
+    "title" : "Java testing",
+    "description" : "Basics on junit testing and TDD",
+    "additionalSource" : "No additional sources",
+    "complete" : false,
+    "creationDate" : [ 2020, 1, 21 ],
+    "completionDate" : null,
+    "topicList" : null
+  }, {
+    "id" : "0f47760c-e657-404a-a1ac-77d56131cec3",
+    "title" : "Java streams",
+    "description" : "How streams in java work and what methods can you use with them",
+    "additionalSource" : "the internet",
+    "complete" : true,
+    "creationDate" : [ 2020, 1, 22 ],
+    "completionDate" : null,
+    "topicList" : null
+  } ]
+}

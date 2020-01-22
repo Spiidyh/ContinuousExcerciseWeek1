@@ -2,6 +2,7 @@ package main.resources;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,7 +18,7 @@ public class Topic {
     private List<Task> taskList;
 
     public Topic() {
-        
+        taskList = new ArrayList<>();
     }
     public Topic(String title, String description, String additionalSource, boolean complete, LocalDate creationDate, LocalDate completionDate) throws ParseException {
         UUID uuid = UUID.randomUUID();
@@ -28,7 +29,16 @@ public class Topic {
         this.complete = complete;
         this.creationDate = creationDate;
         this.completionDate = completionDate;
+        taskList = new ArrayList<>();
 
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public Topic(String title, String description, String additionalSource, boolean complete) {
@@ -40,6 +50,7 @@ public class Topic {
         this.complete = complete;
         this.creationDate = LocalDate.now();
         this.completionDate = null;
+        taskList = new ArrayList<>();
     }
 
     public Topic(String title, String description, String additionalSource, boolean complete, LocalDate completionDate) {
@@ -51,11 +62,24 @@ public class Topic {
         this.complete = complete;
         this.creationDate = LocalDate.now();
         this.completionDate = completionDate;
+        taskList = new ArrayList<>();
     }
-    private void addNewTask(Task t) {
+
+    public Topic(String id, String title, String description, String additionalSource, boolean complete, LocalDate creationDate, LocalDate completionDate, List<Task> taskList) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.additionalSource = additionalSource;
+        this.complete = complete;
+        this.creationDate = creationDate;
+        this.completionDate = completionDate;
+        this.taskList = taskList;
+    }
+
+    public void addNewTask(Task t) {
         taskList.add(t);
     }
-    private void addNewListOfTasks(List<Task> t) {
+    public void addNewListOfTasks(List<Task> t) {
         taskList.addAll(t);
     }
 

@@ -24,6 +24,12 @@ public class Task {
     private boolean complete;
     private Priority priority = Priority.LOW;
 
+    public enum Priority {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
     public Task(Topic topic, String title, String description, List<String> notes, LocalDate deadline, boolean complete, Priority priority) {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
@@ -98,11 +104,7 @@ public class Task {
         this.priority = priority;
     }
 
-    public enum Priority {
-        LOW,
-        MEDIUM,
-        HIGH
-    }
+
 
     ;
 

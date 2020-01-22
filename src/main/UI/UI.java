@@ -2,11 +2,15 @@ package main.UI;
 
 import main.FileReadWrite.FileWrite;
 import main.FileReadWrite.FileRead;
+import main.resources.Task;
 import main.resources.Topic;
 import main.TopicRepo.TopicRepo;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -34,6 +38,7 @@ public class UI {
                     "3 Modify topic\n" +
                     "4 Print specific topic\n" +
                     "5 Delete topic\n" +
+                    "6 Add a new task to topic \n" +
                     "Input command: \n");
             System.out.print(">");
             String command = reader.nextLine();
@@ -52,6 +57,8 @@ public class UI {
                     break;
                 case "5":
                     deleteSpecificTopic();
+                case "6":
+                    addTaskToTopic();
 
 
             }
@@ -169,6 +176,7 @@ public class UI {
         int input = Integer.parseInt(reader.nextLine()) - 1;
         System.out.println(repo.getList().get(input).toString());
     }
+
     private void deleteSpecificTopic() throws IOException {
         System.out.println("Which topic do you want to delete?");
         getSpecificTopic();
@@ -177,6 +185,57 @@ public class UI {
         repo.removeTopic(input);
         System.out.println(topicname + " has been deleted");
         fw.writeJSONFileUpdateFile();
+
+    }
+
+    private void addTaskToTopic() throws IOException {
+        System.out.println("To which topic do you want to add a task?");
+        getSpecificTopic();
+        int input = Integer.parseInt(reader.nextLine()) - 1;
+        System.out.println("INFORMATION FOR TASK");
+        System.out.println("Enter task title");
+        String title = reader.nextLine();
+        System.out.println("Enter task description");
+        String description = reader.nextLine();
+        List<String> notes = new ArrayList<>();
+        while(true) {
+            System.out.println("Add a new note to the list of notes (type 'end' to stop adding)");
+            String note = reader.nextLine();
+            if(note.equalsIgnoreCase("end")) {
+                break;
+            }
+            else {
+                notes.add(note);
+            }
+        }
+        System.out.println("Enter deadline date in the form (01/01/0101) or (01.01.0101");
+        String deadlinedatestring = reader.nextLine();
+        String[] split = deadlinedatestring.split("\\.|\\/");
+        LocalDate deadline = LocalDate.of(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
+        System.out.println("Is the task completed? y/n");
+        String yesno = reader.nextLine();
+        Boolean comp;
+        if (yesno.equalsIgnoreCase("y") || yesno.equalsIgnoreCase("yes")) {
+            comp = true;
+        } else {
+            comp = false;
+        }
+        System.out.println("What is the tasks priority level? (LOW, MEDIUM, HIGH)");
+        Task.Priority prio = Task.Priority.LOW;
+        String prioinput = reader.nextLine();
+        if(prioinput.equalsIgnoreCase("medium")) {
+            prio = Task.Priority.MEDIUM;
+        }
+        if(prioinput.equalsIgnoreCase("high")) {
+            prio = Task.Priority.HIGH;
+        }
+
+        Task t = new Task(repo.getList().get(input), title, description, notes, deadline, comp, prio);
+        repo.getList().get(input).addNewTask(t);
+        System.out.println(t);
+        fw.writeJSONFileUpdateFileWithNewTask(t, input);
+
+
 
     }
 
