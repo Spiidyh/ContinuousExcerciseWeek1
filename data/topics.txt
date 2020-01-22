@@ -1,1 +1,0 @@
-Java collections!/!Information about classes such as list, map, collections!/!https://www.javatpoint.com/collections-in-java!/!false!/!14-01-2020!/!16-01-2020!/!
