@@ -2,12 +2,11 @@ package main.UI;
 
 import main.FileReadWrite.FileWrite;
 import main.FileReadWrite.FileRead;
-import main.resources.Task;
-import main.resources.Topic;
+import main.Objects.Task;
+import main.Objects.Topic;
 import main.TopicRepo.TopicRepo;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +56,11 @@ public class UI {
                     break;
                 case "5":
                     deleteSpecificTopic();
+                    break;
                 case "6":
                     addTaskToTopic();
+                    break;
+                default: break;
 
 
             }
@@ -74,8 +76,10 @@ public class UI {
         System.out.print(">");
         String descr = reader.nextLine();
         System.out.println("Enter additional sources: ");
+        System.out.print(">");
         String addsource = reader.nextLine();
         System.out.println("Is the topic completed? y/n");
+        System.out.print(">");
         String yesno = reader.nextLine();
         Boolean comp;
         if (yesno.equalsIgnoreCase("y") || yesno.equalsIgnoreCase("yes")) {
@@ -84,8 +88,9 @@ public class UI {
             comp = false;
         }
         Topic t = new Topic(name, descr, addsource, comp);
-        fw.writeJSONFileTopic(t);
         repo.addTopic(t);
+        fw.writeJSONFileUpdateFile(repo);
+
     }
 
     private void printAllTopics() {
@@ -117,27 +122,34 @@ public class UI {
         switch (input2) {
             case "1":
                 System.out.println("Enter new title");
+                System.out.print(">");
                 String title = reader.nextLine();
                 repo.getList().get(input).setTitle(title);
                 System.out.println("Title has been modified");
-                fw.writeJSONFileUpdateFile();
+                System.out.print(">");
+                fw.writeJSONFileUpdateFile(repo);
                 break;
             case "2":
                 System.out.println("Enter new description");
+                System.out.print(">");
                 String description = reader.nextLine();
                 repo.getList().get(input).setDescription(description);
                 System.out.println("Description has been modified");
-                fw.writeJSONFileUpdateFile();
+                System.out.print(">");
+                fw.writeJSONFileUpdateFile(repo);
                 break;
             case "3":
                 System.out.println("Enter new additional sources");
+                System.out.print(">");
                 String addsource = reader.nextLine();
                 repo.getList().get(input).setAdditionalSource(addsource);
                 System.out.println("Additional sources has been modified");
-                fw.writeJSONFileUpdateFile();
+                System.out.print(">");
+                fw.writeJSONFileUpdateFile(repo);
                 break;
             case "4":
                 System.out.println("Is the topic complete? y/n");
+                System.out.print(">");
                 String yesno = reader.nextLine();
                 boolean comp;
                 if (yesno.equalsIgnoreCase("y") || yesno.equalsIgnoreCase("yes")) {
@@ -147,31 +159,35 @@ public class UI {
                 }
                 repo.getList().get(input).setComplete(comp);
                 System.out.println("Topic completion has been modified");
-                fw.writeJSONFileUpdateFile();
+                fw.writeJSONFileUpdateFile(repo);
                 break;
             case "5":
-                System.out.println("Enter new creation date in the form (01/01/0101) or (01.01.0101");
+                System.out.println("Enter new creation date in the form (01/01/0101) or (01.01.0101)");
+                System.out.print(">");
                 String creationdate = reader.nextLine();
                 String[] split = creationdate.split("\\.|\\/");
                 repo.getList().get(input).setCreationDate(LocalDate.of(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0])));
                 System.out.println("Creation date has been modified");
-                fw.writeJSONFileUpdateFile();
+                fw.writeJSONFileUpdateFile(repo);
                 break;
             case "6":
-                System.out.println("Enter new completion date in the form (01/01/0101) or (01.01.0101");
+                System.out.println("Enter new completion date in the form (01/01/0101) or (01.01.0101)");
+                System.out.print(">");
                 String completiondate = reader.nextLine();
                 String[] splitc = completiondate.split("\\.|\\/");
                 repo.getList().get(input).setCreationDate(LocalDate.of(Integer.parseInt(splitc[2]), Integer.parseInt(splitc[1]), Integer.parseInt(splitc[0])));
                 System.out.println("Completion date has been modified");
-                fw.writeJSONFileUpdateFile();
+                fw.writeJSONFileUpdateFile(repo);
                 break;
             default:
                 System.out.println("Invalid input");
+                break;
         }
     }
 
     private void printSpecificTopic() {
         System.out.println("Which topic do you want print?");
+        System.out.print(">");
         getSpecificTopic();
         int input = Integer.parseInt(reader.nextLine()) - 1;
         System.out.println(repo.getList().get(input).toString());
@@ -179,27 +195,32 @@ public class UI {
 
     private void deleteSpecificTopic() throws IOException {
         System.out.println("Which topic do you want to delete?");
+        System.out.print(">");
         getSpecificTopic();
         int input = Integer.parseInt(reader.nextLine()) - 1;
         String topicname = repo.getList().get(input).getTitle();
         repo.removeTopic(input);
         System.out.println(topicname + " has been deleted");
-        fw.writeJSONFileUpdateFile();
+        fw.writeJSONFileUpdateFile(repo);
 
     }
 
     private void addTaskToTopic() throws IOException {
         System.out.println("To which topic do you want to add a task?");
         getSpecificTopic();
+        System.out.print(">");
         int input = Integer.parseInt(reader.nextLine()) - 1;
         System.out.println("INFORMATION FOR TASK");
         System.out.println("Enter task title");
+        System.out.print(">");
         String title = reader.nextLine();
         System.out.println("Enter task description");
+        System.out.print(">");
         String description = reader.nextLine();
         List<String> notes = new ArrayList<>();
         while(true) {
             System.out.println("Add a new note to the list of notes (type 'end' to stop adding)");
+            System.out.print(">");
             String note = reader.nextLine();
             if(note.equalsIgnoreCase("end")) {
                 break;
@@ -208,11 +229,13 @@ public class UI {
                 notes.add(note);
             }
         }
-        System.out.println("Enter deadline date in the form (01/01/0101) or (01.01.0101");
+        System.out.println("Enter deadline date in the form (01/01/0101) or (01.01.0101)");
+        System.out.print(">");
         String deadlinedatestring = reader.nextLine();
         String[] split = deadlinedatestring.split("\\.|\\/");
         LocalDate deadline = LocalDate.of(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
         System.out.println("Is the task completed? y/n");
+        System.out.print(">");
         String yesno = reader.nextLine();
         Boolean comp;
         if (yesno.equalsIgnoreCase("y") || yesno.equalsIgnoreCase("yes")) {
@@ -221,6 +244,7 @@ public class UI {
             comp = false;
         }
         System.out.println("What is the tasks priority level? (LOW, MEDIUM, HIGH)");
+        System.out.print(">");
         Task.Priority prio = Task.Priority.LOW;
         String prioinput = reader.nextLine();
         if(prioinput.equalsIgnoreCase("medium")) {
@@ -231,9 +255,8 @@ public class UI {
         }
 
         Task t = new Task(repo.getList().get(input), title, description, notes, deadline, comp, prio);
-        repo.getList().get(input).addNewTask(t);
-        System.out.println(t);
-        fw.writeJSONFileUpdateFileWithNewTask(t, input);
+        repo.addTaskToTopic(t, input);
+        fw.writeJSONFileUpdateFile(repo);
 
 
 

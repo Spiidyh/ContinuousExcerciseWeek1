@@ -1,11 +1,8 @@
-package main.resources;
+package main.Objects;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class Topic {
     private String id;
@@ -18,7 +15,7 @@ public class Topic {
     private List<Task> taskList;
 
     public Topic() {
-        taskList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
     public Topic(String title, String description, String additionalSource, boolean complete, LocalDate creationDate, LocalDate completionDate) throws ParseException {
         UUID uuid = UUID.randomUUID();
@@ -29,7 +26,7 @@ public class Topic {
         this.complete = complete;
         this.creationDate = creationDate;
         this.completionDate = completionDate;
-        taskList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
 
     }
 
@@ -50,7 +47,7 @@ public class Topic {
         this.complete = complete;
         this.creationDate = LocalDate.now();
         this.completionDate = null;
-        taskList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     public Topic(String title, String description, String additionalSource, boolean complete, LocalDate completionDate) {
@@ -62,7 +59,7 @@ public class Topic {
         this.complete = complete;
         this.creationDate = LocalDate.now();
         this.completionDate = completionDate;
-        taskList = new ArrayList<>();
+        this.taskList = new ArrayList<>();
     }
 
     public Topic(String id, String title, String description, String additionalSource, boolean complete, LocalDate creationDate, LocalDate completionDate, List<Task> taskList) {
@@ -77,10 +74,13 @@ public class Topic {
     }
 
     public void addNewTask(Task t) {
-        taskList.add(t);
+        if(this.taskList == null) {
+            this.taskList = new ArrayList<>();
+        }
+         this.taskList.add(t);
     }
     public void addNewListOfTasks(List<Task> t) {
-        taskList.addAll(t);
+        this.taskList.addAll(t);
     }
 
     public String getId() {
@@ -158,15 +158,14 @@ public class Topic {
     @Override
     public String toString() {
         return "Topic{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", additionalSource='" + additionalSource + '\'' +
                 ", complete=" + complete +
                 ", creationDate=" + creationDate +
                 ", completionDate=" + completionDate +
+                ", taskList=" + taskList +
                 '}';
     }
-
-
 }

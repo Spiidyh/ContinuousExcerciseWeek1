@@ -1,6 +1,6 @@
 package main.TopicRepo;
-
-import main.resources.Topic;
+import main.Objects.Task;
+import main.Objects.Topic;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +42,9 @@ public class TopicRepo {
 
     public void removeTopic(int input) {
         repo.remove(input);
+    }
+
+    public void addTaskToTopic(Task t, int input) {
+        repo.get(input).addNewTask(t);
     }
 }

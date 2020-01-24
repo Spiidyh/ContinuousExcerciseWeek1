@@ -1,12 +1,8 @@
 package main.app;
 
 import main.UI.UI;
-import main.resources.Task;
-import main.resources.Topic;
+
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {

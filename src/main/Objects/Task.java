@@ -1,20 +1,10 @@
-package main.resources;
+package main.Objects;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 public class Task {
-    /*
-    − id –intTähän talletetaan kyseisen tehtäväntunniste−
-    Topic -TopicAihe, johon tehtävä liittyy−
-    title –StringAiheen otsikko−
-    description –StringAiheen kuvaus−
-    notes –ArrayList<String>Muistiinpanoja liittyen tehtävään−
-     deadline –LocalDateMilloin tulisi olla valmis−
-     priority –enumKuinka kiireinen kyseinen tehtävä on−
-     complete –boolOnko tehtävä valmis
-     */
     private String id;
     private Topic topic;
     private String title;
@@ -22,7 +12,7 @@ public class Task {
     private List<String> notes;
     private LocalDate deadline;
     private boolean complete;
-    private Priority priority = Priority.LOW;
+    private Priority priority;
 
     public enum Priority {
         LOW,
@@ -48,8 +38,8 @@ public class Task {
     }
 
 
-    public Topic getTopic() {
-        return topic;
+    public String getTopic() {
+        return topic.getTitle();
     }
 
     public void setTopic(Topic topic) {
@@ -105,6 +95,19 @@ public class Task {
     }
 
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", topic=" + topic.getTitle() +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", notes=" + notes +
+                ", deadline=" + deadline +
+                ", complete=" + complete +
+                ", priority=" + priority +
+                '}';
+    }
 
     ;
 
